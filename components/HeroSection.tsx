@@ -198,7 +198,7 @@ export default function HeroSection() {
 
                         {/* RIGHT COLUMN: Image - Heavily Optimized */}
                         <motion.div
-                            className="relative w-full aspect-[4/5] sm:aspect-square lg:aspect-[3/4] max-w-md mx-auto lg:mx-0 order-1 lg:order-2 flex justify-center items-center"
+                            className="relative w-full aspect-[4/5] sm:aspect-square lg:aspect-[3/4] max-w-md mx-auto lg:mx-0 order-1 lg:order-2 flex justify-center items-center lg:ml-auto" // أضف lg:ml-auto هنا
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{
