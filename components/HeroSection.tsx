@@ -288,8 +288,10 @@ export default function HeroSection() {
                         y: { duration: 2, repeat: Infinity, ease: "easeInOut" }
                     }}
                 >
-                    <span className="text-[10px] tracking-[0.2em] uppercase text-neutral-500">Scroll</span>
-                    <div className="w-[1px] h-12 bg-gradient-to-b from-transparent via-neutral-500 to-transparent" />
+                    <div className="fixed left-1/2 bottom-0 transform -translate-x-1/2 flex flex-col items-center z-50">
+                        <span className="text-[10px] tracking-[0.2em] uppercase text-neutral-500">Scroll</span>
+                        <div className="w-[1px] h-12 bg-gradient-to-b from-transparent via-neutral-500 to-transparent" />
+                    </div>
                 </motion.div>
             )}
         </section>
