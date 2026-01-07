@@ -78,7 +78,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             className={`relative flex items-center w-full ${isEven ? "md:justify-start" : "md:justify-end"} justify-center mb-24 md:mb-32 last:mb-0`}
         >
             {/* Timeline dot */}
-            <div className="absolute left-4 md:left-1/2 w-4 h-4 bg-indigo-500 rounded-full border-4 border-neutral-900 md:-translate-x-1/2 z-20 shadow-[0_0_15px_rgba(99,102,241,0.5)] hidden md:block" />
+            <div className="absolute left-4 md:left-1/2 w-4 h-4 bg-[rgba(var(--cosmic-indigo),1)] rounded-full border-4 border-neutral-900 md:-translate-x-1/2 z-20 shadow-[0_0_15px_rgba(var(--cosmic-indigo),0.5)] hidden md:block" />
 
             {/* Content Card */}
             <div
@@ -149,8 +149,8 @@ export default function ProjectsSection() {
             id="projects"
             className="relative py-24 sm:py-32 overflow-hidden"
         >
-            {/* Unified Cosmic Gradient - Matches HeroSection */}
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[rgba(10,10,20,0.4)] to-[rgba(10,10,10,0.8)]" />
+            {/* Unified Deep Space Gradient - Final Section Transition */}
+            <div className="absolute inset-0 bg-gradient-to-b from-[var(--gradient-mid)] via-[var(--gradient-mid-heavy)] to-[var(--gradient-end)]" />
 
             <div className="relative z-10 max-w-6xl mx-auto px-6 sm:px-8">
                 {/* Section header */}

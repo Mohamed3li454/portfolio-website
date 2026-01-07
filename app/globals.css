@@ -1,12 +1,40 @@
 @import "tailwindcss";
 
-/* Dark Mode Only - Portfolio Theme */
+/* Deep Space Color System - Unified Design */
 :root {
+  /* Base Colors */
   --background: #0a0a0a;
   --foreground: #ededed;
   --accent: #6366f1;
   --accent-secondary: #8b5cf6;
   --muted: #737373;
+
+  /* Deep Space Palette */
+  --space-dark: 5, 5, 10;
+  /* Deepest space background */
+  --space-base: 10, 10, 20;
+  /* Base cosmic void */
+  --space-mid: 15, 15, 30;
+  /* Mid-depth space */
+  --space-light: 20, 20, 40;
+  /* Lighter cosmic regions */
+
+  /* Cosmic Accent Colors (RGB for flexibility) */
+  --cosmic-indigo: 99, 102, 241;
+  /* Primary cosmic glow */
+  --cosmic-purple: 139, 92, 246;
+  /* Secondary cosmic energy */
+  --cosmic-violet: 124, 58, 237;
+  /* Deep violet nebula */
+  --cosmic-blue: 59, 130, 246;
+  /* Stellar blue */
+
+  /* Gradient Stops - For seamless section transitions */
+  --gradient-start: rgba(var(--space-dark), 0);
+  --gradient-mid-light: rgba(var(--space-base), 0.3);
+  --gradient-mid: rgba(var(--space-base), 0.5);
+  --gradient-mid-heavy: rgba(var(--space-base), 0.7);
+  --gradient-end: rgba(var(--space-dark), 0.95);
 }
 
 @theme inline {
@@ -72,4 +100,9 @@ body {
 
 .translate-z-20 {
   transform: translateZ(20px);
+}
+
+/* Gradient Utilities */
+.bg-gradient-radial {
+  background-image: radial-gradient(circle, var(--tw-gradient-stops));
 }

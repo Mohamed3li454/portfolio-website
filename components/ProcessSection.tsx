@@ -61,8 +61,10 @@ export default function ProcessSection() {
 
     return (
         <section ref={containerRef} className="relative py-32 overflow-hidden">
-            {/* Background Glow */}
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-indigo-900/10 to-transparent pointer-events-none" />
+            {/* Unified Deep Space Gradient - Seamless Transition */}
+            <div className="absolute inset-0 bg-gradient-to-b from-[var(--gradient-mid)] via-[var(--gradient-mid-heavy)] to-[var(--gradient-mid)] pointer-events-none" />
+            {/* Subtle Cosmic Accent Glow */}
+            <div className="absolute inset-0 bg-gradient-radial from-[rgba(var(--cosmic-indigo),0.08)] via-transparent to-transparent pointer-events-none" />
 
             <div className="relative z-10 max-w-5xl mx-auto px-6">
                 {/* Header */}

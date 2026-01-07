@@ -1,27 +1,14 @@
 "use client";
 
-import { motion, useMotionValue, useSpring, useTransform, AnimatePresence, useScroll } from "framer-motion";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
-import MagneticButton from "./ui/MagneticButton";
+import Image from "next/image";
+import Constellation from "./ui/Constellation";
 
-const fadeInUp = {
-    initial: { opacity: 0, y: 30 },
-    animate: { opacity: 1, y: 0 },
-};
-
-const staggerContainer = {
-    animate: {
-        transition: {
-            staggerChildren: 0.15,
-            delayChildren: 0.3,
-        },
-    },
-};
-
-const titles = [
+const roles = [
     "Flutter Developer",
-    "Mobile App Engineer",
     "Firebase & API Specialist",
+    "Mobile App Engineer",
 ];
 
 const philosophySentences = [
@@ -31,18 +18,17 @@ const philosophySentences = [
 ];
 
 export default function HeroSection() {
+    // State for Intro Sequence
     const [introStep, setIntroStep] = useState(0);
     const [showHero, setShowHero] = useState(false);
-    const [titleIndex, setTitleIndex] = useState(0);
 
-    // Mouse position for parallax
-    const mouseX = useMotionValue(0);
-    const mouseY = useMotionValue(0);
+    // State for Hero Content
+    const [roleIndex, setRoleIndex] = useState(0);
 
-    // Scroll parallax for content
+    // Optimized scroll parallax - using transform for GPU acceleration
     const { scrollY } = useScroll();
-    const y = useTransform(scrollY, [0, 500], [0, 200]);
-    const opacity = useTransform(scrollY, [0, 500], [1, 0]);
+    const parallaxY = useTransform(scrollY, [0, 500], [0, 150]);
+    const fadeOpacity = useTransform(scrollY, [0, 300], [1, 0]);
 
     // Intro Sequence Logic
     useEffect(() => {
@@ -57,193 +43,253 @@ export default function HeroSection() {
         }
     }, [introStep]);
 
-    // Smooth spring physics for natural movement
-    const springConfig = { damping: 25, stiffness: 150 };
-    const smoothMouseX = useSpring(mouseX, springConfig);
-    const smoothMouseY = useSpring(mouseY, springConfig);
-
-    // Transform mouse position to parallax offset (subtle movement)
-    const orbLeftX = useTransform(smoothMouseX, [-500, 500], [20, -20]);
-    const orbLeftY = useTransform(smoothMouseY, [-500, 500], [15, -15]);
-    const orbRightX = useTransform(smoothMouseX, [-500, 500], [-25, 25]);
-    const orbRightY = useTransform(smoothMouseY, [-500, 500], [-20, 20]);
-
-    // Tech Planet Parallax
-    const planetX = useTransform(smoothMouseX, [-500, 500], [10, -10]);
-    const planetY = useTransform(smoothMouseY, [-500, 500], [10, -10]);
-
-    // Handle mouse movement
-    useEffect(() => {
-        const handleMouseMove = (e: MouseEvent) => {
-            const { clientX, clientY } = e;
-            const centerX = window.innerWidth / 2;
-            const centerY = window.innerHeight / 2;
-            mouseX.set(clientX - centerX);
-            mouseY.set(clientY - centerY);
-        };
-
-        window.addEventListener("mousemove", handleMouseMove);
-        return () => window.removeEventListener("mousemove", handleMouseMove);
-    }, [mouseX, mouseY]);
-
-    // Rotate through titles (only start after hero is shown)
+    // Role rotation cycle (Starts only after hero is shown)
     useEffect(() => {
         if (!showHero) return;
         const interval = setInterval(() => {
-            setTitleIndex((prev) => (prev + 1) % titles.length);
+            setRoleIndex((prev) => (prev + 1) % roles.length);
         }, 3000);
         return () => clearInterval(interval);
     }, [showHero]);
 
     return (
-        <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-            {/* Semi-transparent atmospheric gradient */}
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[rgba(10,10,20,0.4)] to-[rgba(10,10,10,0.8)] z-0" />
-
-            {/* Background Orbs (Subtle ambience) */}
-            <motion.div
-                className="absolute top-1/4 -left-32 w-96 h-96 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none z-0"
-                style={{ x: orbLeftX, y: orbLeftY }}
-                animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
-                transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        <section
+            className="relative min-h-screen flex items-center justify-center overflow-hidden px-6 sm:px-12 py-20"
+            style={{
+                contain: 'layout style paint',
+                willChange: 'auto'
+            }}
+        >
+            {/* Background Effects - Unified Deep Space Gradient */}
+            <div
+                className="absolute inset-0 bg-gradient-to-b from-[var(--gradient-start)] via-[var(--gradient-mid-light)] to-[var(--gradient-mid)] z-0 pointer-events-none"
+                style={{ contain: 'strict' }}
             />
 
-            <div className="relative z-10 w-full mb-10">
-                <AnimatePresence mode="wait">
-                    {!showHero ? (
-                        /* INTRO SEQUENCE */
-                        <motion.div
-                            key="intro"
-                            className="absolute inset-0 flex items-center justify-center pointer-events-none -mt-20 sm:-mt-0"
-                            exit={{ opacity: 0 }}
-                            transition={{ duration: 1 }}
-                        >
-                            <AnimatePresence mode="wait">
-                                {introStep < philosophySentences.length && (
-                                    <motion.h2
-                                        key={introStep}
-                                        className="text-3xl md:text-5xl font-bold text-white text-center px-4 tracking-tight leading-tight"
-                                        initial={{ opacity: 0, filter: "blur(10px)", scale: 0.95 }}
-                                        animate={{ opacity: 1, filter: "blur(0px)", scale: 1 }}
-                                        exit={{ opacity: 0, filter: "blur(10px)", scale: 1.05 }}
-                                        transition={{ duration: 0.8, ease: "easeOut" }}
-                                    >
-                                        {philosophySentences[introStep]}
-                                    </motion.h2>
-                                )}
-                            </AnimatePresence>
-                        </motion.div>
-                    ) : (
-                        /* MAIN HERO CONTENT */
-                        <motion.div
-                            key="hero"
-                            className="relative px-6 sm:px-8 max-w-7xl mx-auto flex flex-col items-center justify-center"
-                            variants={staggerContainer}
-                            initial="initial"
-                            animate="animate"
-                            style={{ y, opacity }}
-                        >
-                            {/* 3D Tech Planet Visual */}
-                            <motion.div
-                                className="absolute -z-10 w-[600px] h-[600px] sm:w-[800px] sm:h-[800px] pointer-events-none opacity-60 mix-blend-screen"
-                                style={{ x: planetX, y: planetY }}
-                                initial={{ opacity: 0, scale: 0.8, rotate: -20 }}
-                                animate={{
-                                    opacity: 0.6,
-                                    scale: 1,
-                                    rotate: 0,
-                                    transition: { duration: 2, ease: "easeOut" }
-                                }}
-                            >
-                                <motion.img
-                                    src="/blue-planet.png"
-                                    alt="Tech Planet Core"
-                                    className="w-full h-full object-contain"
-                                    animate={{
-                                        rotate: 360,
-                                        scale: [1, 1.05, 1]
-                                    }}
-                                    transition={{
-                                        rotate: { duration: 120, repeat: Infinity, ease: "linear" },
-                                        scale: { duration: 8, repeat: Infinity, ease: "easeInOut" }
-                                    }}
-                                />
-                                {/* Glow overlay */}
-                                <div className="absolute inset-0 bg-indigo-500/20 rounded-full blur-[100px]" />
-                            </motion.div>
-
-                            {/* Name Title */}
-                            <motion.h1
-                                className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold tracking-tighter text-center"
-                                variants={fadeInUp}
-                                transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-                            >
-                                <span className="bg-gradient-to-b from-white via-white to-white/40 bg-clip-text text-transparent drop-shadow-2xl">
-                                    Mohamed Ali
-                                </span>
-                            </motion.h1>
-
-                            <motion.div
-                                className="mt-6 sm:mt-8 h-[36px] sm:h-[40px] md:h-[48px] overflow-hidden"
-                                variants={fadeInUp}
-                            >
-                                <AnimatePresence mode="wait">
-                                    <motion.p
-                                        key={titleIndex}
-                                        className="text-xl sm:text-2xl md:text-3xl text-indigo-300 font-medium tracking-wide uppercase px-4 py-1 rounded-full bg-indigo-950/30 border border-indigo-500/20 backdrop-blur-sm"
-                                        initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
-                                        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                                        exit={{ opacity: 0, y: -20, filter: "blur(8px)" }}
-                                        transition={{ duration: 0.5 }}
-                                    >
-                                        {titles[titleIndex]}
-                                    </motion.p>
-                                </AnimatePresence>
-                            </motion.div>
-
-                            <motion.div
-                                className="mt-12 sm:mt-16 flex flex-col sm:flex-row gap-6 justify-center items-center"
-                                variants={fadeInUp}
-                            >
-                                <MagneticButton
-                                    href="#projects"
-                                    className="group relative px-10 py-5 w-full sm:w-auto min-w-[200px] rounded-full bg-white text-black font-bold text-lg overflow-hidden transition-transform duration-300 hover:scale-105"
-                                >
-                                    <span className="relative z-10">Explore Work</span>
-                                    <div className="absolute inset-0 bg-indigo-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                                </MagneticButton>
-
-                                <MagneticButton
-                                    href="#contact"
-                                    className="group px-10 py-5 w-full sm:w-auto min-w-[200px] rounded-full border border-white/20 bg-black/40 backdrop-blur-md text-white font-medium text-lg transition-all duration-300 hover:bg-white/10 hover:border-white/40"
-                                >
-                                    Contact
-                                </MagneticButton>
-                            </motion.div>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
+            {/* Constellation Background - Optimized rendering */}
+            <div
+                className="absolute inset-0 pointer-events-none opacity-40 mix-blend-screen overflow-hidden"
+                style={{
+                    contain: 'strict',
+                    transform: 'translateZ(0)',
+                    backfaceVisibility: 'hidden'
+                }}
+            >
+                <Constellation />
             </div>
 
-            {/* Scroll indicator (Only show when hero is active) */}
+            <AnimatePresence mode="wait">
+                {!showHero ? (
+                    /* ============== INTRO SEQUENCE - Hardware Accelerated ============== */
+                    <motion.div
+                        key="intro"
+                        className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none"
+                        exit={{ opacity: 0, scale: 1.1 }}
+                        transition={{ duration: 0.8, ease: [0.43, 0.13, 0.23, 0.96] }}
+                        style={{
+                            willChange: 'transform, opacity',
+                            transform: 'translateZ(0)'
+                        }}
+                    >
+                        <AnimatePresence mode="wait">
+                            {introStep < philosophySentences.length && (
+                                <motion.h2
+                                    key={introStep}
+                                    className="text-3xl md:text-5xl font-bold text-white text-center px-4 tracking-tight leading-tight drop-shadow-2xl"
+                                    initial={{ opacity: 0, scale: 0.95 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    exit={{ opacity: 0, scale: 1.05 }}
+                                    transition={{
+                                        duration: 0.6,
+                                        ease: [0.43, 0.13, 0.23, 0.96]
+                                    }}
+                                    style={{
+                                        willChange: 'transform, opacity',
+                                        transform: 'translateZ(0)'
+                                    }}
+                                >
+                                    {philosophySentences[introStep]}
+                                </motion.h2>
+                            )}
+                        </AnimatePresence>
+                    </motion.div>
+                ) : (
+                    /* ============== MAIN HERO CONTENT - Optimized ============== */
+                    <motion.div
+                        key="hero"
+                        className="relative z-10 max-w-7xl w-full grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center"
+                        style={{
+                            y: parallaxY,
+                            opacity: fadeOpacity,
+                            willChange: 'transform, opacity',
+                            transform: 'translateZ(0)'
+                        }}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.8, ease: [0.43, 0.13, 0.23, 0.96] }}
+                    >
+                        {/* LEFT COLUMN: Text Content - Hardware Accelerated */}
+                        <div
+                            className="flex flex-col items-start text-left space-y-6 order-2 lg:order-1"
+                            style={{ contain: 'layout style' }}
+                        >
+                            <motion.div
+                                initial={{ opacity: 0, x: -30 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{
+                                    duration: 0.7,
+                                    ease: [0.43, 0.13, 0.23, 0.96],
+                                    delay: 0.2
+                                }}
+                                style={{
+                                    willChange: 'transform, opacity',
+                                    transform: 'translateZ(0)'
+                                }}
+                            >
+                                <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tighter text-white/90 drop-shadow-2xl">
+                                    Mohamed <span className="text-indigo-500/80">Ali</span>
+                                </h1>
+                                <div className="h-1 w-24 bg-gradient-to-r from-indigo-500 to-transparent mt-4 rounded-full" />
+                            </motion.div>
+
+                            {/* Animated Role Text - Optimized with transform only */}
+                            <div
+                                className="h-12 sm:h-16 flex items-center overflow-hidden"
+                                style={{ contain: 'layout' }}
+                            >
+                                <AnimatePresence mode="wait">
+                                    <motion.span
+                                        key={roleIndex}
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, y: -20 }}
+                                        transition={{
+                                            duration: 0.4,
+                                            ease: [0.43, 0.13, 0.23, 0.96]
+                                        }}
+                                        className="text-xl sm:text-2xl md:text-3xl font-medium text-indigo-300 tracking-wide"
+                                        style={{
+                                            willChange: 'transform, opacity',
+                                            transform: 'translateZ(0)'
+                                        }}
+                                    >
+                                        {roles[roleIndex]}
+                                    </motion.span>
+                                </AnimatePresence>
+                            </div>
+
+                            <motion.p
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{
+                                    duration: 0.7,
+                                    delay: 0.4,
+                                    ease: [0.43, 0.13, 0.23, 0.96]
+                                }}
+                                className="text-lg text-neutral-400 max-w-lg leading-relaxed"
+                                style={{
+                                    willChange: 'transform, opacity',
+                                    transform: 'translateZ(0)'
+                                }}
+                            >
+                                I build scalable and beautiful mobile applications.
+                            </motion.p>
+                        </div>
+
+                        {/* RIGHT COLUMN: Image - Heavily Optimized */}
+                        <motion.div
+                            className="relative w-full aspect-[4/5] sm:aspect-square lg:aspect-[3/4] max-w-md mx-auto lg:mx-0 order-1 lg:order-2 flex justify-center items-center"
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{
+                                duration: 0.9,
+                                ease: [0.43, 0.13, 0.23, 0.96],
+                                delay: 0.2
+                            }}
+                            style={{
+                                willChange: 'transform, opacity',
+                                transform: 'translateZ(0)',
+                                contain: 'layout'
+                            }}
+                        >
+                            {/* Floating Animation - GPU Accelerated */}
+                            <motion.div
+                                className="relative w-full h-full rounded-2xl overflow-hidden group"
+                                animate={{ y: [0, -15, 0] }}
+                                transition={{
+                                    duration: 6,
+                                    repeat: Infinity,
+                                    ease: "easeInOut"
+                                }}
+                                style={{
+                                    willChange: 'transform',
+                                    transform: 'translateZ(0)',
+                                    backfaceVisibility: 'hidden'
+                                }}
+                            >
+                                {/* Optimized overlay effects */}
+                                <div
+                                    className="absolute inset-0 bg-gradient-to-tr from-indigo-500/20 to-transparent opacity-60 mix-blend-overlay z-10"
+                                    style={{ pointerEvents: 'none' }}
+                                />
+                                <div
+                                    className="absolute inset-0 shadow-[inset_0_0_100px_rgba(0,0,0,0.8)] z-20 pointer-events-none"
+                                />
+
+                                {/* Optimized Image Container */}
+                                <div
+                                    className="w-full h-full bg-neutral-900 flex items-center justify-center"
+                                    style={{
+                                        contain: 'strict',
+                                        transform: 'translateZ(0)'
+                                    }}
+                                >
+                                    <Image
+                                        src="/myimage.JPG"
+                                        alt="Mohamed Ali"
+                                        fill
+                                        className="object-cover grayscale hover:grayscale-0 transition-all duration-700 ease-out"
+                                        priority
+                                        quality={90}
+                                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                                        style={{
+                                            transform: 'translateZ(0)',
+                                            willChange: 'filter'
+                                        }}
+                                    />
+                                </div>
+
+                                {/* Optimized Glow Effect - Using transform for better performance */}
+                                <div
+                                    className="absolute -inset-10 bg-indigo-500/20 blur-3xl -z-10 rounded-full opacity-40 group-hover:opacity-60 transition-opacity duration-1000"
+                                    style={{
+                                        transform: 'translateZ(0)',
+                                        willChange: 'opacity'
+                                    }}
+                                />
+                            </motion.div>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
+            {/* Scroll Indicator - Hardware Accelerated */}
             {showHero && (
                 <motion.div
-                    className="absolute bottom-8 left-1/2 -translate-x-1/2 mix-blend-difference"
+                    className="absolute bottom-10 left-1/2 flex flex-col items-center gap-2 opacity-60"
+                    style={{
+                        transform: 'translate(-50%, 0) translateZ(0)',
+                        willChange: 'transform, opacity'
+                    }}
                     initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 1, duration: 1 }}
+                    animate={{ opacity: 0.6, y: [0, 10, 0] }}
+                    transition={{
+                        opacity: { delay: 1, duration: 0.8 },
+                        y: { duration: 2, repeat: Infinity, ease: "easeInOut" }
+                    }}
                 >
-                    <motion.div
-                        className="w-5 h-8 rounded-full border border-white/50 flex justify-center pt-2"
-                        animate={{ opacity: [0.5, 1, 0.5] }}
-                        transition={{ duration: 2, repeat: Infinity }}
-                    >
-                        <motion.div
-                            className="w-1 h-2 bg-white rounded-full"
-                            animate={{ y: [0, 6, 0] }}
-                            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-                        />
-                    </motion.div>
+                    <span className="text-[10px] tracking-[0.2em] uppercase text-neutral-500">Scroll</span>
+                    <div className="w-[1px] h-12 bg-gradient-to-b from-transparent via-neutral-500 to-transparent" />
                 </motion.div>
             )}
         </section>
