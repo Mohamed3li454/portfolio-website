@@ -292,7 +292,7 @@ export default function HeroSection() {
                                         fill
                                         className="object-cover grayscale hover:grayscale-0 transition-all duration-700 ease-out"
                                         priority
-                                        quality={90}
+                                        quality={75}
                                         sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                                         style={{
                                             transform: 'translateZ(0)',

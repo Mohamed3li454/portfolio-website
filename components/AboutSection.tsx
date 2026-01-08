@@ -142,7 +142,7 @@ export default function AboutSection() {
                                         fill
                                         className="object-cover"
                                         sizes="(max-width: 768px) 256px, 320px"
-                                        quality={95}
+                                        quality={75}
                                     />
                                     {/* Overlay gradient */}
                                     <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-transparent" />

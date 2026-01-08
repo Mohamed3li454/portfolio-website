@@ -12,7 +12,7 @@ interface Project {
     type: string;
     description: string;
     techStack: string[];
-    link: string; // 1. وحدنا الاسم ليكون "link" عام
+    link: string;
     image: string;
 }
 
@@ -34,7 +34,7 @@ const projects: Project[] = [
         description:
             "A smart notes app with editing, timestamps, and color personalization.",
         techStack: ["Flutter", "Local Storage", "Clean UI"],
-        link: "https://www.behance.net/gallery/193240001/Notes-App-Mobile-app-build-with-Flutter", // ⚠️ رابط بيهانس (سيظهر كـ View Case Study تلقائياً)
+        link: "https://www.behance.net/gallery/193240001/Notes-App-Mobile-app-build-with-Flutter",
         image: "/projects/notes/notes-1.jpg",
     },
     {
@@ -73,8 +73,11 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 
     const isEven = index % 2 === 0;
 
-    // 2. منطق تحديد نوع الرابط (هل هو بيهانس أم لا؟)
+    // منطق تحديد نوع الرابط
     const isBehance = project.link.includes("behance.net");
+
+    // 🔥 التعديل الجديد: التحقق مما إذا كانت الصورة GIF
+    const isGif = project.image.toLowerCase().endsWith(".gif");
 
     return (
         <motion.div
@@ -106,6 +109,8 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                             fill
                             className="object-cover transition-transform duration-700 group-hover:scale-105"
                             priority={index === 0}
+                            // 🔥 التعديل الجديد: إيقاف التحسين للصور المتحركة فقط
+                            unoptimized={isGif}
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-indigo-900/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                     </div>
@@ -122,7 +127,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                                 </p>
                             </div>
 
-                            {/* 3. الزر الذكي: يغير الشكل والكلمة بناءً على الرابط */}
+                            {/* الزر الذكي */}
                             <MagneticButton
                                 href={project.link}
                                 target="_blank"
@@ -130,7 +135,6 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                                 className="flex items-center justify-center gap-2 px-4 py-2 bg-neutral-800 text-white text-sm font-medium rounded-lg hover:bg-neutral-700 transition-colors duration-300 border border-neutral-700/50"
                             >
                                 {isBehance ? (
-                                    // ✅ Behance Icon & Text
                                     <>
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
@@ -143,7 +147,6 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                                         View Case Study
                                     </>
                                 ) : (
-                                    // ✅ Website Icon & Text
                                     <>
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
