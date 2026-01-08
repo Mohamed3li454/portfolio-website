@@ -2,13 +2,15 @@ import HeroSection from "@/components/HeroSection";
 import ProjectsSection from "@/components/ProjectsSection";
 import ProcessSection from "@/components/ProcessSection";
 import SkillsSection from "@/components/SkillsSection";
+import AboutSection from "@/components/AboutSection";
 
 export default function Home() {
   return (
     <main>
       <HeroSection />
-      <SkillsSection />
       <ProcessSection />
+      <SkillsSection />
+      <AboutSection />
       <ProjectsSection />
     </main>
   );

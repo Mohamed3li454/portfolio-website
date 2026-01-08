@@ -64,7 +64,7 @@ export default function SkillsSection() {
     return (
         <section
             ref={sectionRef}
-            className="relative min-h-screen flex flex-col items-center justify-center px-6 sm:px-12 py-20 overflow-hidden"
+            className="relative min-h-screen flex flex-col items-center justify-center px-6 sm:px-12 pt-20 pb-50 overflow-hidden"
         >
             {/* Background gradient */}
             <div
