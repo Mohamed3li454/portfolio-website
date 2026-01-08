@@ -29,6 +29,20 @@
   --cosmic-blue: 59, 130, 246;
   /* Stellar blue */
 
+  /* Premium Rim Glow System */
+  --rim-glow-color: rgba(var(--cosmic-indigo), 0.6);
+  /* Primary glow color */
+  --rim-glow-secondary: rgba(var(--cosmic-violet), 0.4);
+  /* Secondary glow layer */
+  --rim-glow-blur-base: 40px;
+  /* Base blur radius */
+  --rim-glow-blur-mid: 60px;
+  /* Mid blur radius */
+  --rim-glow-blur-far: 80px;
+  /* Far blur radius */
+  --rim-glow-spread: -10px;
+  /* Negative spread for rim effect */
+
   /* Gradient Stops - For seamless section transitions */
   --gradient-start: rgba(var(--space-dark), 0);
   --gradient-mid-light: rgba(var(--space-base), 0.3);

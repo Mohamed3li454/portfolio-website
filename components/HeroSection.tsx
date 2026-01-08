@@ -198,7 +198,7 @@ export default function HeroSection() {
 
                         {/* RIGHT COLUMN: Image - Heavily Optimized */}
                         <motion.div
-                            className="relative w-full aspect-[4/5] sm:aspect-square lg:aspect-[3/4] max-w-md mx-auto lg:mx-0 order-1 lg:order-2 flex justify-center items-center lg:ml-auto" // أضف lg:ml-auto هنا
+                            className="relative w-full aspect-[4/5] sm:aspect-square lg:aspect-[3/4] max-w-md mx-auto lg:mx-0 order-1 lg:order-2 flex justify-center items-center lg:ml-auto"
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{
@@ -212,9 +212,50 @@ export default function HeroSection() {
                                 contain: 'layout'
                             }}
                         >
+                            {/* Premium Rim Glow Effect - OUTSIDE overflow container */}
+                            <motion.div
+                                className="absolute -inset-4 sm:-inset-6 lg:-inset-8 rounded-3xl pointer-events-none z-0"
+                                animate={{
+                                    opacity: [0.5, 0.8, 0.5],
+                                    scale: [1, 1.02, 1]
+                                }}
+                                transition={{
+                                    duration: 7,
+                                    repeat: Infinity,
+                                    ease: "easeInOut"
+                                }}
+                                style={{
+                                    transform: 'translateZ(0)',
+                                    willChange: 'transform, opacity',
+                                    backfaceVisibility: 'hidden',
+                                    // Multi-layered box shadow for soft rim glow
+                                    boxShadow: `
+                                        0 0 40px 0px rgba(99, 102, 241, 0.4),
+                                        0 0 80px 0px rgba(124, 58, 237, 0.3),
+                                        0 0 120px 0px rgba(99, 102, 241, 0.2)
+                                    `
+                                }}
+                            />
+
+                            {/* Additional subtle radial glow - Desktop only */}
+                            <div
+                                className="absolute -inset-12 sm:-inset-16 lg:-inset-20 rounded-full pointer-events-none z-0 hidden md:block"
+                                style={{
+                                    transform: 'translateZ(0)',
+                                    background: `radial-gradient(
+                                        circle at center,
+                                        rgba(99, 102, 241, 0.15) 0%,
+                                        rgba(124, 58, 237, 0.08) 40%,
+                                        transparent 70%
+                                    )`,
+                                    filter: 'blur(40px)',
+                                    opacity: 0.7
+                                }}
+                            />
+
                             {/* Floating Animation - GPU Accelerated */}
                             <motion.div
-                                className="relative w-full h-full rounded-2xl overflow-hidden group"
+                                className="relative w-full h-full rounded-2xl overflow-hidden group z-10"
                                 animate={{ y: [0, -15, 0] }}
                                 transition={{
                                     duration: 6,
@@ -258,15 +299,6 @@ export default function HeroSection() {
                                         }}
                                     />
                                 </div>
-
-                                {/* Optimized Glow Effect - Using transform for better performance */}
-                                <div
-                                    className="absolute -inset-10 bg-indigo-500/20 blur-3xl -z-10 rounded-full opacity-40 group-hover:opacity-60 transition-opacity duration-1000"
-                                    style={{
-                                        transform: 'translateZ(0)',
-                                        willChange: 'opacity'
-                                    }}
-                                />
                             </motion.div>
                         </motion.div>
                     </motion.div>
