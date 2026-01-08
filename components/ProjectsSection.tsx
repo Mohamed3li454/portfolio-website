@@ -150,7 +150,7 @@ export default function ProjectsSection() {
             className="relative py-24 sm:py-32 overflow-hidden"
         >
             {/* Unified Deep Space Gradient - Final Section Transition */}
-            <div className="absolute inset-0 bg-gradient-to-b from-[var(--gradient-mid)] via-[var(--gradient-mid-heavy)] to-[var(--gradient-end)]" />
+            <div className="absolute inset-0 bg-gradient-to-b from-[var(--gradient-end)] via-[var(--gradient-end)] to-[var(--gradient-end)]" />
 
             <div className="relative z-10 max-w-6xl mx-auto px-6 sm:px-8">
                 {/* Section header */}

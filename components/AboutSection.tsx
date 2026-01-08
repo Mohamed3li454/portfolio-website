@@ -42,7 +42,7 @@ export default function AboutSection() {
         >
             {/* Background gradient */}
             <div
-                className="absolute inset-0 bg-gradient-to-b from-[var(--gradient-end)] via-[var(--gradient-mid-heavy)] to-[var(--gradient-mid)] z-0 pointer-events-none"
+                className="absolute inset-0 bg-gradient-to-b from-[var(--gradient-end)] via-[var(--gradient-end)] to-[var(--gradient-end)] z-0 pointer-events-none"
             />
 
             {/* Content Container */}
