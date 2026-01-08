@@ -7,8 +7,9 @@ import Constellation from "./ui/Constellation";
 
 const roles = [
     "Flutter Developer",
-    "Firebase & API Specialist",
     "Mobile App Engineer",
+    "Firebase & API Specialist",
+    "Clean Architecture Enthusiast",
 ];
 
 const philosophySentences = [
@@ -146,7 +147,7 @@ export default function HeroSection() {
                                     transform: 'translateZ(0)'
                                 }}
                             >
-                                <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tighter text-white/90 drop-shadow-2xl">
+                                <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tighter text-white/90 drop-shadow-2xl cursor-hover">
                                     Mohamed <span className="text-indigo-500/80">Ali</span>
                                 </h1>
                                 <div className="h-1 w-24 bg-gradient-to-r from-indigo-500 to-transparent mt-4 rounded-full" />
@@ -160,16 +161,16 @@ export default function HeroSection() {
                                 <AnimatePresence mode="wait">
                                     <motion.span
                                         key={roleIndex}
-                                        initial={{ opacity: 0, y: 20 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        exit={{ opacity: 0, y: -20 }}
+                                        initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
+                                        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                                        exit={{ opacity: 0, y: -20, filter: "blur(4px)" }}
                                         transition={{
-                                            duration: 0.4,
+                                            duration: 0.5,
                                             ease: [0.43, 0.13, 0.23, 0.96]
                                         }}
                                         className="text-xl sm:text-2xl md:text-3xl font-medium text-indigo-300 tracking-wide"
                                         style={{
-                                            willChange: 'transform, opacity',
+                                            willChange: 'transform, opacity, filter',
                                             transform: 'translateZ(0)'
                                         }}
                                     >

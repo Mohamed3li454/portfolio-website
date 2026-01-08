@@ -19,9 +19,9 @@ const expertise = [
 
 const socialLinks = [
     { name: "GitHub", icon: FaGithub, url: "https://github.com/Mohamed3li454" },
-    { name: "Behance", icon: FaBehance, url: "https://www.behance.net/Mohamed3li454" },
-    { name: "Telegram", icon: FaTelegram, url: "https://t.me/Mohamed3li454" },
-    { name: "X", icon: BsTwitterX, url: "https://twitter.com/Mohamed3li454" },
+    { name: "Behance", icon: FaBehance, url: "https://www.behance.net/5c8dc512" },
+    { name: "Telegram", icon: FaTelegram, url: "https://t.me/Mohamed3li54" },
+    { name: "X", icon: BsTwitterX, url: "https://x.com/no_one8383" },
 ];
 
 // 2. تعديل المصفوفة عشان تشيل الـ Component واللون بدلاً من الإيموجي
