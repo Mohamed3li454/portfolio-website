@@ -119,7 +119,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                     {/* Content */}
                     <div className="p-6 sm:p-8">
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
-                            <div>
+                            <div className="min-w-0">
                                 <h3 className="text-2xl font-semibold text-white group-hover:text-indigo-400 transition-colors duration-300 transform translate-z-10">
                                     {project.title}
                                 </h3>
@@ -133,11 +133,11 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                                 href={project.link}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="flex items-center justify-center gap-2 px-4 py-2 bg-neutral-800 text-white text-sm font-medium rounded-lg hover:bg-neutral-700 transition-colors duration-300 border border-neutral-700/50"
+                                className="flex items-center justify-center gap-2 px-4 py-2 bg-neutral-800 text-white text-sm font-medium rounded-lg hover:bg-neutral-700 transition-colors duration-300 border border-neutral-700/50 whitespace-nowrap shrink-0"
                             >
                                 {isBehance ? (
                                     <>
-                                        <FaBehance className="w-4 h-4 text-[#1769ff]" />
+                                        <FaBehance className="w-4 h-4 text-[#1769ff] shrink-0" />
                                         View Case Study
                                     </>
                                 ) : (
