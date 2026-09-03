@@ -3,6 +3,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import Image from "next/image";
+import { FaBehance } from "react-icons/fa";
 import TiltCard from "./ui/TiltCard";
 import MagneticButton from "./ui/MagneticButton";
 
@@ -19,13 +20,13 @@ interface Project {
 const projects: Project[] = [
     {
         id: 1,
-        title: "My Study",
-        type: "Study Tracking & Analytics",
+        title: "Libris",
+        type: "Book Discovery & Personal Library App",
         description:
-            "A discipline-focused study tracker with real-time analytics, Supabase authentication, and a gradient-rich dark UI for honest self-assessment.",
-        techStack: ["Next.js 16", "Supabase", "TypeScript", "Framer Motion"],
-        link: "https://mystudyapp.vercel.app/",
-        image: "/projects/my-study/mystudy-1.png",
+            "A modern book discovery app for exploring books, reading available titles, and building a personal library.",
+        techStack: ["Flutter", "Dart", "Cubit", "Hive", "Dio", "GoRouter"],
+        link: "https://www.behance.net/gallery/255206229/Libris-Modern-Book-Discovery-Personal-Library-App",
+        image: "/projects/libris-app/libris_app.png",
     },
     {
         id: 2,
@@ -136,14 +137,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                             >
                                 {isBehance ? (
                                     <>
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 24 24"
-                                            fill="currentColor"
-                                            className="w-4 h-4 text-[#1769ff]"
-                                        >
-                                            <path d="M7.335 15.688c.958 0 1.764-.109 2.418-.328.654-.219 1.154-.536 1.5-.953.345-.417.518-.934.518-1.551 0-.746-.263-1.346-.788-1.799-.525-.453-1.284-.68-2.277-.68h-4.32v5.31h2.95zm-2.95-6.574h2.583c.801 0 1.419-.17 1.854-.509.435-.34.652-.821.652-1.442 0-.583-.197-1.025-.591-1.328-.393-.303-1.002-.455-1.826-.455H4.385v3.734zM10.927 12c.57-.456.855-1.127.855-2.016 0-1.614-.94-2.583-2.82-2.906V7.06c1.23.235 2.146.736 2.748 1.503.602.767.903 1.739.903 2.916 0 1.155-.386 2.148-1.158 2.981-.772.833-1.85 1.354-3.235 1.564v-.004a5.57 5.57 0 0 1 2.707-3.02zM22 7h-7V5h7v2zm1.726 10c-.442 1.297-2.029 3-5.101 3-3.074 0-5.564-1.729-5.564-5.675 0-3.91 2.325-5.92 5.466-5.92 3.082 0 4.964 1.782 5.375 4.426.078.506.109 1.188.095 2.14H15.97c.13 3.211 3.483 3.312 4.588 2.029h3.168zm-7.686-4h4.965c-.105-1.547-1.136-2.219-2.477-2.219-1.466 0-2.277.768-2.488 2.219zm-9.574 6.988H0V5.021h6.953c5.476.081 5.58 5.444 2.72 6.906 3.461 1.26 3.577 8.061-3.207 8.061zM3 11h3.584c2.508 0 2.906-3-.312-3H3v3zm3.391 3H3v3.016h3.341c3.055 0 2.868-3.016.05-3.016z" />
-                                        </svg>
+                                        <FaBehance className="w-4 h-4 text-[#1769ff]" />
                                         View Case Study
                                     </>
                                 ) : (
