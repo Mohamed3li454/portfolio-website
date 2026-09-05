@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import SpaceBackground from "@/components/SpaceBackground";
 import CustomCursor from "@/components/CustomCursor";
@@ -7,6 +7,12 @@ import CustomCursor from "@/components/CustomCursor";
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
+});
+
+const plusJakartaSans = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  variable: "--font-plus-jakarta",
+  weight: ["500", "600", "700", "800"],
 });
 
 export const metadata: Metadata = {
@@ -30,7 +36,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark relative" suppressHydrationWarning>
       <body
-        className={`${inter.variable} font-sans antialiased bg-[#0a0a0a] text-white relative`}
+        className={`${inter.variable} ${plusJakartaSans.variable} font-sans antialiased bg-[#0a0a0a] text-white relative`}
       >
         <SpaceBackground />
         <CustomCursor />
