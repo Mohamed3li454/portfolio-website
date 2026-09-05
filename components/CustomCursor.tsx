@@ -20,9 +20,8 @@ export default function CustomCursor() {
         const isDesktop = window.matchMedia("(min-width: 768px)").matches;
         if (!isDesktop) return;
 
-        setIsVisible(true);
-
         const moveCursor = (e: MouseEvent) => {
+            setIsVisible(true);
             cursorX.set(e.clientX);
             cursorY.set(e.clientY);
         };

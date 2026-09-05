@@ -26,9 +26,9 @@ const socialLinks = [
 
 // 2. تعديل المصفوفة عشان تشيل الـ Component واللون بدلاً من الإيموجي
 const orbitingIcons = [
-    { name: "Android", icon: FaAndroid, color: "#3DDC84", angle: 0 },   // لون أندرويد الأخضر
-    { name: "iOS", icon: FaApple, color: "#FFFFFF", angle: 120 },       // لون أبل الأبيض
-    { name: "Flutter", icon: SiFlutter, color: "#54C5F8", angle: 240 }, // لون فلاتر الأزرق
+    { name: "Flutter", icon: SiFlutter, color: "#54C5F8", angle: 300 }, // لون فلاتر الأزرق
+    { name: "iOS", icon: FaApple, color: "#FFFFFF", angle: 60 },        // لون أبل الأبيض
+    { name: "Android", icon: FaAndroid, color: "#3DDC84", angle: 180 },   // لون أندرويد الأخضر
 ];
 
 export default function AboutSection() {
@@ -59,49 +59,61 @@ export default function AboutSection() {
                         <div className="relative w-full max-w-md aspect-square flex items-center justify-center">
 
                             {/* Orbiting Icons Container */}
-                            <div className="absolute inset-0 flex items-center justify-center">
-                                {orbitingIcons.map((item, index) => {
-                                    // بنعمل متغير للأيقونة عشان نستخدمها كـ Component
-                                    const IconComponent = item.icon;
+                            <div className="absolute inset-0 z-20 pointer-events-none flex items-center justify-center">
+                                <motion.div
+                                    className="relative w-full h-full"
+                                    animate={{ rotate: 360 }}
+                                    transition={{
+                                        duration: 25,
+                                        repeat: Infinity,
+                                        ease: "linear",
+                                    }}
+                                >
+                                    {orbitingIcons.map((item) => {
+                                        const IconComponent = item.icon;
 
-                                    return (
-                                        <motion.div
-                                            key={item.name}
-                                            className="absolute w-full h-full"
-                                            animate={{ rotate: 360 }}
-                                            transition={{
-                                                duration: 20,
-                                                repeat: Infinity,
-                                                ease: "linear",
-                                                delay: (index * 20) / 3,
-                                            }}
-                                            style={{
-                                                transform: `rotate(${item.angle}deg)`,
-                                            }}
-                                        >
-                                            <motion.div
-                                                className="absolute top-0 left-1/2 -translate-x-1/2 w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-indigo-500/20 to-violet-600/20 backdrop-blur-md rounded-full flex items-center justify-center border border-indigo-500/30 shadow-lg"
-                                                animate={{ rotate: -360 }}
-                                                transition={{
-                                                    duration: 20,
-                                                    repeat: Infinity,
-                                                    ease: "linear",
-                                                    delay: (index * 20) / 3,
-                                                }}
-                                                whileHover={{ scale: 1.2 }}
+                                        return (
+                                            <div
+                                                key={item.name}
+                                                className="absolute inset-0 pointer-events-none"
                                                 style={{
-                                                    boxShadow: "0 0 20px rgba(99, 102, 241, 0.4)",
+                                                    transform: `rotate(${item.angle}deg)`,
                                                 }}
                                             >
-                                                {/* 3. عرض الأيقونة هنا بدلاً من النص */}
-                                                <IconComponent
-                                                    className="text-2xl sm:text-3xl"
-                                                    style={{ color: item.color }}
-                                                />
-                                            </motion.div>
-                                        </motion.div>
-                                    );
-                                })}
+                                                <div
+                                                    className="absolute top-0 left-1/2 -translate-x-1/2 pointer-events-auto"
+                                                    style={{
+                                                        transform: `rotate(-${item.angle}deg)`,
+                                                    }}
+                                                >
+                                                    <motion.div
+                                                        className="w-12 h-12 sm:w-16 sm:h-16"
+                                                        animate={{ rotate: -360 }}
+                                                        transition={{
+                                                            duration: 25,
+                                                            repeat: Infinity,
+                                                            ease: "linear",
+                                                        }}
+                                                    >
+                                                        <motion.div
+                                                            className="w-full h-full bg-gradient-to-br from-indigo-500/20 to-violet-600/20 backdrop-blur-md rounded-full flex items-center justify-center border border-indigo-500/30 shadow-lg cursor-pointer"
+                                                            whileHover={{ scale: 1.2 }}
+                                                            transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                                                            style={{
+                                                                boxShadow: "0 0 20px rgba(99, 102, 241, 0.4)",
+                                                            }}
+                                                        >
+                                                            <IconComponent
+                                                                className="text-2xl sm:text-3xl"
+                                                                style={{ color: item.color }}
+                                                            />
+                                                        </motion.div>
+                                                    </motion.div>
+                                                </div>
+                                            </div>
+                                        );
+                                    })}
+                                </motion.div>
                             </div>
 
                             {/* Profile Image with Glow */}
@@ -189,7 +201,7 @@ export default function AboutSection() {
                                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                                 transition={{ delay: 0.5, duration: 0.6 }}
                             >
-                                "I build high-quality mobile applications with Flutter, focusing on clean architecture, performance, and real-world scalability."
+                                &ldquo;I build high-quality mobile applications with Flutter, focusing on clean architecture, performance, and real-world scalability.&rdquo;
                             </motion.p>
 
                             {/* Main Paragraph */}

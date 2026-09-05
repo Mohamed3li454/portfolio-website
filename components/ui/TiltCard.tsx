@@ -19,11 +19,6 @@ export default function TiltCard({ children, className = "" }: TiltCardProps) {
     const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [7, -7]), springConfig); // Input is -0.5 to 0.5 percent
     const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-7, 7]), springConfig);
 
-    // Glare effect values
-    const glareX = useSpring(useTransform(x, [-0.5, 0.5], [0, 100]), springConfig);
-    const glareY = useSpring(useTransform(y, [-0.5, 0.5], [0, 100]), springConfig);
-    const glareOpacity = useTransform(useSpring(useMotionValue(0), springConfig), [0, 1], [0, 1]);
-
     const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
         if (!ref.current) return;
 

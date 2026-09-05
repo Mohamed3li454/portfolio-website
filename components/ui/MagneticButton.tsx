@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { useRef, useState } from "react";
+import { motion, useMotionValue, useSpring } from "framer-motion";
+import { useRef } from "react";
 
 interface MagneticButtonProps {
     children: React.ReactNode;
@@ -20,8 +20,7 @@ export default function MagneticButton({
     target,
     rel,
 }: MagneticButtonProps) {
-    // We use a flexible ref type here because we're attaching it to motion.a or motion.button
-    const ref = useRef<any>(null);
+    const ref = useRef<HTMLElement | null>(null);
 
     const x = useMotionValue(0);
     const y = useMotionValue(0);
@@ -51,21 +50,35 @@ export default function MagneticButton({
         y.set(0);
     };
 
-    const Component = href ? motion.a : motion.button;
-    // @ts-ignore - framer motion types are tricky with dynamic components, usually fine in practice
-    const props = href ? { href, target, rel } : { onClick };
+    if (href) {
+        return (
+            <motion.a
+                ref={ref as React.Ref<HTMLAnchorElement>}
+                href={href}
+                target={target}
+                rel={rel}
+                className={`relative ${className}`}
+                onMouseMove={handleMouseMove}
+                onMouseLeave={handleMouseLeave}
+                style={{ x: springX, y: springY }}
+                whileTap={{ scale: 0.95 }}
+            >
+                {children}
+            </motion.a>
+        );
+    }
 
     return (
-        <Component
-            ref={ref}
+        <motion.button
+            ref={ref as React.Ref<HTMLButtonElement>}
+            onClick={onClick}
             className={`relative ${className}`}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
             style={{ x: springX, y: springY }}
             whileTap={{ scale: 0.95 }}
-            {...props}
         >
             {children}
-        </Component>
+        </motion.button>
     );
 }

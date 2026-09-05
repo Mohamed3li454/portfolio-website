@@ -51,13 +51,10 @@ const connections = [
     // [5, 2], // Hive <-> REST APIs
     // [5, 3], // Hive <-> BLoC
     [5, 4], // Hive <-> UI/UX
-
-
-
 ];
 
 export default function SkillsSection() {
-    const sectionRef = useRef(null);
+    const sectionRef = useRef<HTMLElement>(null);
     const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 

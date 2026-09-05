@@ -54,7 +54,7 @@ export default function ClosingSection() {
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.8, delay: 0.2, ease: [0.43, 0.13, 0.23, 0.96] }}
                 >
-                    Let's build something{" "}
+                    Let&apos;s build something{" "}
                     <span className="bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent">
                         meaningful
                     </span>.
@@ -68,7 +68,7 @@ export default function ClosingSection() {
                     transition={{ duration: 0.8, delay: 0.4, ease: [0.43, 0.13, 0.23, 0.96] }}
                 >
                     If you have an idea, a product, or just curiosity —<br />
-                    I'm always open to new challenges and collaborations.
+                    I&apos;m always open to new challenges and collaborations.
                 </motion.p>
 
                 {/* Decorative line */}

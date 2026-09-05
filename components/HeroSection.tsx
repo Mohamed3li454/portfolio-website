@@ -21,7 +21,7 @@ const philosophySentences = [
 export default function HeroSection() {
     // State for Intro Sequence
     const [introStep, setIntroStep] = useState(0);
-    const [showHero, setShowHero] = useState(false);
+    const showHero = introStep >= philosophySentences.length;
 
     // State for Hero Content
     const [roleIndex, setRoleIndex] = useState(0);
@@ -38,9 +38,6 @@ export default function HeroSection() {
                 setIntroStep((prev) => prev + 1);
             }, 2500);
             return () => clearTimeout(timer);
-        } else {
-            // Intro complete, show hero
-            setShowHero(true);
         }
     }, [introStep]);
 
@@ -193,43 +190,23 @@ export default function HeroSection() {
                                     transform: 'translateZ(0)'
                                 }}
                             >
-                                I build scalable and beautiful mobile applications.
+                                I build scalable and performance optimized mobile applications.
                             </motion.p>
                         </div>
 
-                        {/* RIGHT COLUMN: Image - Heavily Optimized */}
-                        <motion.div
+                        {/* RIGHT COLUMN: Image - Static, Non-animated to emphasize specialization text */}
+                        <div
                             className="relative w-full aspect-[4/5] sm:aspect-square lg:aspect-[3/4] max-w-md mx-auto lg:mx-0 order-1 lg:order-2 flex justify-center items-center lg:ml-auto"
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{
-                                duration: 0.9,
-                                ease: [0.43, 0.13, 0.23, 0.96],
-                                delay: 0.2
-                            }}
                             style={{
-                                willChange: 'transform, opacity',
-                                transform: 'translateZ(0)',
                                 contain: 'layout'
                             }}
                         >
-                            {/* Premium Rim Glow Effect - OUTSIDE overflow container */}
-                            <motion.div
-                                className="absolute -inset-4 sm:-inset-6 lg:-inset-8 rounded-3xl pointer-events-none z-0"
-                                animate={{
-                                    opacity: [0.5, 0.8, 0.5],
-                                    scale: [1, 1.02, 1]
-                                }}
-                                transition={{
-                                    duration: 7,
-                                    repeat: Infinity,
-                                    ease: "easeInOut"
-                                }}
+                            {/* Premium Rim Glow Effect - Static elegant frame */}
+                            <div
+                                className="absolute -inset-4 sm:-inset-6 lg:-inset-8 rounded-3xl pointer-events-none z-0 opacity-70"
                                 style={{
                                     transform: 'translateZ(0)',
-                                    willChange: 'transform, opacity',
                                     backfaceVisibility: 'hidden',
-                                    // Multi-layered box shadow for soft rim glow
                                     boxShadow: `
                                         0 0 40px 0px rgba(99, 102, 241, 0.4),
                                         0 0 80px 0px rgba(124, 58, 237, 0.3),
@@ -254,17 +231,10 @@ export default function HeroSection() {
                                 }}
                             />
 
-                            {/* Floating Animation - GPU Accelerated */}
-                            <motion.div
+                            {/* Static Image Frame - Completely grounded */}
+                            <div
                                 className="relative w-full h-full rounded-2xl overflow-hidden group z-10"
-                                animate={{ y: [0, -15, 0] }}
-                                transition={{
-                                    duration: 6,
-                                    repeat: Infinity,
-                                    ease: "easeInOut"
-                                }}
                                 style={{
-                                    willChange: 'transform',
                                     transform: 'translateZ(0)',
                                     backfaceVisibility: 'hidden'
                                 }}
@@ -280,7 +250,7 @@ export default function HeroSection() {
 
                                 {/* Optimized Image Container */}
                                 <div
-                                    className="w-full h-full bg-neutral-900 flex items-center justify-center"
+                                    className="relative w-full h-full bg-neutral-900 flex items-center justify-center"
                                     style={{
                                         contain: 'strict',
                                         transform: 'translateZ(0)'
@@ -300,8 +270,8 @@ export default function HeroSection() {
                                         }}
                                     />
                                 </div>
-                            </motion.div>
-                        </motion.div>
+                            </div>
+                        </div>
                     </motion.div>
                 )}
             </AnimatePresence>
