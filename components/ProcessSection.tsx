@@ -1,143 +1,199 @@
 "use client";
 
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
-import { useRef } from "react";
+import { motion } from "framer-motion";
+import { useState } from "react";
+import PhoneSimulator from "./ui/PhoneSimulator";
 
 const steps = [
     {
         id: 1,
+        number: "01",
         title: "Idea & Planning",
-        description: "Brainstorming core features and mapping user flows to ensure a solid foundation.",
-        icon: (
-            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-            </svg>
-        ),
+        badge: "Blueprint Phase",
+        description:
+            "Deconstructing user requirements, mapping complete navigation flows, and drafting responsive wireframes to guarantee a crystal-clear technical roadmap.",
+        tags: ["User Flow Mapping", "Wireframes", "Feature Scoping", "Tech Stack Selection"],
     },
     {
         id: 2,
-        title: "Architecture",
-        description: "Designing scalable systems and selecting the right tech stack for long-term growth.",
-        icon: (
-            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-            </svg>
-        ),
+        number: "02",
+        title: "Clean Architecture & State",
+        badge: "Engineering Phase",
+        description:
+            "Decoupling the application into Presentation, Domain, and Data layers. Structuring predictable state management with BLoC or Cubit so the codebase stays testable and scalable.",
+        tags: ["Clean Architecture", "BLoC / Cubit", "Dependency Injection", "Repository Pattern"],
     },
     {
         id: 3,
-        title: "UI/UX Craft",
-        description: "Blending aesthetics with usability to create immersive and intuitive interfaces.",
-        icon: (
-            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
-            </svg>
-        ),
+        number: "03",
+        title: "UI/UX & Motion Craft",
+        badge: "Design Execution",
+        description:
+            "Translating designs into responsive Flutter widgets with pixel perfection, intuitive gestures, fluid micro-interactions, and adaptive layouts across iOS and Android.",
+        tags: ["Flutter Widgets", "Material 3", "Responsive UI", "Micro-Interactions"],
     },
     {
         id: 4,
-        title: "Performance",
-        description: "Optimizing every interaction for 60fps smoothness and instant load times.",
-        icon: (
-            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-            </svg>
-        ),
+        number: "04",
+        title: "Performance & Launch",
+        badge: "Production Release",
+        description:
+            "Profiling rendering pipelines for rock-solid 60 FPS, eliminating frame drops, securing offline storage, and preparing production-grade builds for the App Store and Google Play.",
+        tags: ["60 FPS Profiling", "Zero Jank", "App Store (iOS)", "Google Play (Android)"],
     },
 ];
 
 export default function ProcessSection() {
-    const containerRef = useRef<HTMLDivElement>(null);
-    const { scrollYProgress } = useScroll({
-        target: containerRef,
-        offset: ["start end", "end start"],
-    });
-
-    const smoothProgress = useSpring(scrollYProgress, {
-        stiffness: 100,
-        damping: 30,
-        restDelta: 0.001
-    });
+    const [activeStage, setActiveStage] = useState<number>(1);
 
     return (
-        <section ref={containerRef} className="relative py-32 overflow-hidden">
-            {/* Unified Deep Space Gradient - Seamless Transition */}
+        <section id="process" className="relative py-28 sm:py-36 overflow-hidden">
+            {/* Unified Deep Space Gradient - Seamless Continuity */}
             <div className="absolute inset-0 bg-gradient-to-b from-[var(--gradient-mid)] via-[var(--gradient-mid-heavy)] to-[var(--gradient-mid)] pointer-events-none" />
             {/* Subtle Cosmic Accent Glow */}
             <div className="absolute inset-0 bg-gradient-radial from-[rgba(var(--cosmic-indigo),0.08)] via-transparent to-transparent pointer-events-none" />
 
-            <div className="relative z-10 max-w-5xl mx-auto px-6">
+            <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8">
                 {/* Header */}
-                <div className="text-center mb-24">
+                <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-20">
                     <motion.span
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        className="inline-block text-indigo-400 font-medium tracking-wider text-sm mb-4 uppercase"
+                        initial={{ opacity: 0, y: -10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        className="inline-block text-indigo-400 font-semibold tracking-widest text-xs sm:text-sm mb-3 uppercase bg-indigo-950/40 px-3 py-1 rounded-full border border-indigo-500/20"
                     >
                         The Process
                     </motion.span>
                     <motion.h2
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        className="text-3xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-white/60"
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6 }}
+                        className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-4"
                     >
                         From Concept to Launch
                     </motion.h2>
+                    <motion.p
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: 0.1 }}
+                        className="text-neutral-400 text-sm sm:text-base leading-relaxed"
+                    >
+                        A disciplined engineering pipeline for turning ideas into clean, maintainable, and high-performance mobile applications.
+                    </motion.p>
                 </div>
 
-                <div className="relative">
-                    {/* Central Beam */}
-                    <div className="absolute left-[20px] md:left-1/2 top-0 bottom-0 w-px bg-neutral-800 -translate-x-1/2" />
+                {/* Mobile / Tablet Stage Selector Strip (< lg) */}
+                <div className="flex lg:hidden items-center justify-start gap-2 overflow-x-auto pb-4 mb-8 scrollbar-none">
+                    {steps.map((step) => {
+                        const isActive = step.id === activeStage;
+                        return (
+                            <button
+                                key={step.id}
+                                onClick={() => setActiveStage(step.id)}
+                                className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all duration-300 border shrink-0 ${
+                                    isActive
+                                        ? "bg-indigo-600 text-white border-indigo-400 shadow-[0_0_15px_rgba(99,102,241,0.5)]"
+                                        : "bg-neutral-900/60 text-neutral-400 border-neutral-800 hover:text-white hover:border-neutral-700"
+                                }`}
+                            >
+                                <span className="font-mono text-[11px] opacity-80">{step.number}</span>
+                                <span>{step.title}</span>
+                            </button>
+                        );
+                    })}
+                </div>
 
-                    {/* Active Beam (Progress) */}
-                    <motion.div
-                        className="absolute left-[20px] md:left-1/2 top-0 w-px bg-gradient-to-b from-indigo-500 via-purple-500 to-indigo-500 -translate-x-1/2 shadow-[0_0_15px_rgba(99,102,241,0.6)]"
-                        style={{ height: useTransform(smoothProgress, [0.1, 0.85], ["0%", "100%"]) }}
-                    />
+                {/* Main 2-Column Responsive Layout */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+                    {/* Left Column: Interactive Sticky Phone Mockup (5 cols) */}
+                    <div className="lg:col-span-5 flex justify-center lg:sticky lg:top-28">
+                        <PhoneSimulator activeStage={activeStage} />
+                    </div>
 
-                    <div className="space-y-24">
-                        {steps.map((step, index) => {
-                            const isEven = index % 2 === 0;
+                    {/* Right Column: 4 Interactive Stage Cards (7 cols) */}
+                    <div className="lg:col-span-7 space-y-4 sm:space-y-5">
+                        {steps.map((step) => {
+                            const isActive = step.id === activeStage;
 
                             return (
-                                <div key={step.id} className={`relative flex items-center md:justify-center ${!isEven ? 'md:flex-row-reverse' : ''}`}>
+                                <div
+                                    key={step.id}
+                                    onClick={() => setActiveStage(step.id)}
+                                    onKeyDown={(e) => {
+                                        if (e.key === "Enter" || e.key === " ") {
+                                            e.preventDefault();
+                                            setActiveStage(step.id);
+                                        }
+                                    }}
+                                    role="button"
+                                    tabIndex={0}
+                                    className={`relative p-6 sm:p-7 rounded-2xl border transition-all duration-300 cursor-pointer text-left group overflow-hidden ${
+                                        isActive
+                                            ? "bg-neutral-900/80 border-indigo-500/50 shadow-[0_0_30px_rgba(99,102,241,0.18)]"
+                                            : "bg-neutral-900/30 border-neutral-800/80 hover:bg-neutral-900/60 hover:border-neutral-700"
+                                    }`}
+                                >
+                                    {/* Active Left Indicator Accent Bar */}
+                                    <div
+                                        className={`absolute left-0 top-0 bottom-0 w-1 transition-all duration-300 ${
+                                            isActive
+                                                ? "bg-gradient-to-b from-indigo-500 to-violet-500 shadow-[0_0_12px_rgba(99,102,241,1)]"
+                                                : "bg-transparent"
+                                        }`}
+                                    />
 
-                                    {/* Node Point */}
-                                    <div className="absolute left-[20px] md:left-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-[#0a0a0a] border border-neutral-800 flex items-center justify-center z-20 group">
-                                        <motion.div
-                                            className="w-2 h-2 rounded-full bg-neutral-600 transition-colors duration-500 group-hover:bg-indigo-400"
-                                            initial={{ scale: 0 }}
-                                            whileInView={{ scale: 1 }}
-                                            viewport={{ margin: "-100px" }}
-                                        />
-                                        {/* Active Halo */}
-                                        <motion.div
-                                            className="absolute inset-0 rounded-full border border-indigo-500/50"
-                                            initial={{ opacity: 0, scale: 0.8 }}
-                                            whileInView={{ opacity: 1, scale: 1 }}
-                                            viewport={{ margin: "-100px" }}
-                                            transition={{ duration: 0.4 }}
-                                        />
+                                    {/* Card Header */}
+                                    <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
+                                        <div className="flex items-center gap-3">
+                                            <span
+                                                className={`text-sm font-mono font-bold transition-colors duration-300 ${
+                                                    isActive ? "text-indigo-400" : "text-neutral-500"
+                                                }`}
+                                            >
+                                                {step.number}
+                                            </span>
+                                            <h3
+                                                className={`text-lg sm:text-xl font-bold transition-colors duration-300 ${
+                                                    isActive ? "text-white" : "text-neutral-300 group-hover:text-white"
+                                                }`}
+                                            >
+                                                {step.title}
+                                            </h3>
+                                        </div>
+
+                                        <span
+                                            className={`text-[11px] font-medium font-mono px-2.5 py-0.5 rounded-full border transition-colors duration-300 ${
+                                                isActive
+                                                    ? "bg-indigo-500/20 text-indigo-300 border-indigo-500/40"
+                                                    : "bg-neutral-800/50 text-neutral-500 border-neutral-800"
+                                            }`}
+                                        >
+                                            {step.badge}
+                                        </span>
                                     </div>
 
-                                    {/* Content Card */}
-                                    <motion.div
-                                        initial={{ opacity: 0, x: isEven ? -20 : 20 }}
-                                        whileInView={{ opacity: 1, x: 0 }}
-                                        viewport={{ margin: "-100px", once: true }}
-                                        className={`ml-16 md:ml-0 w-full md:w-[calc(50%-3rem)] ${isEven ? 'md:mr-auto md:text-right' : 'md:ml-auto md:text-left'}`}
-                                    >
-                                        <div className={`flex flex-col ${isEven ? 'md:items-end' : 'md:items-start'} items-start`}>
-                                            <div className="w-12 h-12 rounded-xl bg-neutral-900/80 border border-neutral-800 flex items-center justify-center text-indigo-400 mb-4 backdrop-blur-sm shadow-lg">
-                                                {step.icon}
-                                            </div>
-                                            <h3 className="text-xl font-bold text-white mb-2">{step.title}</h3>
-                                            <p className="text-neutral-400 text-sm leading-relaxed max-w-sm">
-                                                {step.description}
-                                            </p>
-                                        </div>
-                                    </motion.div>
+                                    {/* Description */}
+                                    <p className="text-neutral-400 text-sm sm:text-[15px] leading-relaxed mb-4">
+                                        {step.description}
+                                    </p>
 
+                                    {/* Tech Tags */}
+                                    <div className="flex flex-wrap gap-2">
+                                        {step.tags.map((tag) => (
+                                            <span
+                                                key={tag}
+                                                className={`text-xs px-2.5 py-1 rounded-md transition-colors duration-300 ${
+                                                    isActive
+                                                        ? "bg-indigo-950/40 text-indigo-200 border border-indigo-500/20"
+                                                        : "bg-neutral-800/40 text-neutral-400 border border-neutral-800"
+                                                }`}
+                                            >
+                                                {tag}
+                                            </span>
+                                        ))}
+                                    </div>
                                 </div>
                             );
                         })}
