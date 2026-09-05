@@ -10,6 +10,7 @@ interface MagneticButtonProps {
     href?: string;
     target?: string;
     rel?: string;
+    as?: "a" | "button" | "div";
 }
 
 export default function MagneticButton({
@@ -19,6 +20,7 @@ export default function MagneticButton({
     href,
     target,
     rel,
+    as,
 }: MagneticButtonProps) {
     const ref = useRef<HTMLElement | null>(null);
 
@@ -49,6 +51,21 @@ export default function MagneticButton({
         x.set(0);
         y.set(0);
     };
+
+    if (as === "div") {
+        return (
+            <motion.div
+                ref={ref as React.Ref<HTMLDivElement>}
+                className={`relative ${className}`}
+                onMouseMove={handleMouseMove}
+                onMouseLeave={handleMouseLeave}
+                style={{ x: springX, y: springY }}
+                whileTap={{ scale: 0.95 }}
+            >
+                {children}
+            </motion.div>
+        );
+    }
 
     if (href) {
         return (

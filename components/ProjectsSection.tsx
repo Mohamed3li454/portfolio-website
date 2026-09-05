@@ -101,84 +101,90 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                 className={`relative w-full md:w-[calc(50%-4rem)] ${isEven ? "md:mr-auto md:pr-8" : "md:ml-auto md:pl-8"
                     } px-4 md:px-0`}
             >
-                <TiltCard className="bg-neutral-900/50 backdrop-blur-sm border border-neutral-800 rounded-2xl overflow-hidden group hover:border-indigo-500/30 transition-colors duration-500">
-                    {/* Project Image */}
-                    <div className="relative aspect-video overflow-hidden">
-                        <Image
-                            src={project.image}
-                            alt={project.title}
-                            fill
-                            sizes="(max-width: 768px) 100vw, 50vw"
-                            className="object-cover transition-transform duration-700 group-hover:scale-105"
-                            priority={index === 0}
-                            // 🔥 التعديل الجديد: إيقاف التحسين للصور المتحركة فقط
-                            unoptimized={isGif}
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-indigo-900/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    </div>
+                <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`View ${project.title}`}
+                    className="block w-full cursor-pointer group/card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white rounded-2xl"
+                >
+                    <TiltCard className="bg-neutral-900/50 backdrop-blur-sm border border-neutral-800 rounded-2xl overflow-hidden group-hover/card:border-white hover:border-white transition-colors duration-300">
+                        {/* Project Image */}
+                        <div className="relative aspect-video overflow-hidden">
+                            <Image
+                                src={project.image}
+                                alt={project.title}
+                                fill
+                                sizes="(max-width: 768px) 100vw, 50vw"
+                                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                                priority={index === 0}
+                                // 🔥 التعديل الجديد: إيقاف التحسين للصور المتحركة فقط
+                                unoptimized={isGif}
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-indigo-900/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                        </div>
 
-                    {/* Content */}
-                    <div className="p-6 sm:p-8">
-                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
-                            <div className="min-w-0">
-                                <h3 className="text-2xl font-semibold text-white group-hover:text-indigo-400 transition-colors duration-300 transform translate-z-10">
-                                    {project.title}
-                                </h3>
-                                <p className="text-sm font-medium text-indigo-400 mt-1">
-                                    {project.type}
-                                </p>
+                        {/* Content */}
+                        <div className="p-6 sm:p-8">
+                            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+                                <div className="min-w-0">
+                                    <h3 className="text-2xl font-semibold text-white group-hover:text-indigo-400 transition-colors duration-300 transform translate-z-10">
+                                        {project.title}
+                                    </h3>
+                                    <p className="text-sm font-medium text-indigo-400 mt-1">
+                                        {project.type}
+                                    </p>
+                                </div>
+
+                                {/* الزر الذكي */}
+                                <MagneticButton
+                                    as="div"
+                                    className="flex items-center justify-center gap-2 px-4 py-2 bg-neutral-800 text-white text-sm font-medium rounded-lg group-hover/card:bg-neutral-700 hover:bg-neutral-700 transition-colors duration-300 border border-neutral-700/50 whitespace-nowrap shrink-0"
+                                >
+                                    {isBehance ? (
+                                        <>
+                                            <FaBehance className="w-4 h-4 text-[#1769ff] shrink-0" />
+                                            View Case Study
+                                        </>
+                                    ) : (
+                                        <>
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                fill="none"
+                                                viewBox="0 0 24 24"
+                                                strokeWidth={1.5}
+                                                stroke="currentColor"
+                                                className="w-4 h-4 text-[#1769ff]"
+                                            >
+                                                <path
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                    d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418"
+                                                />
+                                            </svg>
+                                            Visit Project
+                                        </>
+                                    )}
+                                </MagneticButton>
                             </div>
 
-                            {/* الزر الذكي */}
-                            <MagneticButton
-                                href={project.link}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="flex items-center justify-center gap-2 px-4 py-2 bg-neutral-800 text-white text-sm font-medium rounded-lg hover:bg-neutral-700 transition-colors duration-300 border border-neutral-700/50 whitespace-nowrap shrink-0"
-                            >
-                                {isBehance ? (
-                                    <>
-                                        <FaBehance className="w-4 h-4 text-[#1769ff] shrink-0" />
-                                        View Case Study
-                                    </>
-                                ) : (
-                                    <>
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            strokeWidth={1.5}
-                                            stroke="currentColor"
-                                            className="w-4 h-4 text-[#1769ff]"
-                                        >
-                                            <path
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418"
-                                            />
-                                        </svg>
-                                        Visit Project
-                                    </>
-                                )}
-                            </MagneticButton>
-                        </div>
+                            <p className="text-neutral-400 mb-6 leading-relaxed">
+                                {project.description}
+                            </p>
 
-                        <p className="text-neutral-400 mb-6 leading-relaxed">
-                            {project.description}
-                        </p>
-
-                        <div className="flex flex-wrap gap-2">
-                            {project.techStack.map((tech) => (
-                                <span
-                                    key={tech}
-                                    className="px-3 py-1 bg-neutral-800/50 text-neutral-300 text-xs font-medium rounded-full border border-neutral-700/50"
-                                >
-                                    {tech}
-                                </span>
-                            ))}
+                            <div className="flex flex-wrap gap-2">
+                                {project.techStack.map((tech) => (
+                                    <span
+                                        key={tech}
+                                        className="px-3 py-1 bg-neutral-800/50 text-neutral-300 text-xs font-medium rounded-full border border-neutral-700/50"
+                                    >
+                                        {tech}
+                                    </span>
+                                ))}
+                            </div>
                         </div>
-                    </div>
-                </TiltCard>
+                    </TiltCard>
+                </a>
             </div>
         </motion.div>
     );
