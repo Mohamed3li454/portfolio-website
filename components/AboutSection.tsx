@@ -3,26 +3,10 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import Image from "next/image";
-// 1. استيراد الأيقونات الجديدة
-import { FaGithub, FaBehance, FaTelegram, FaAndroid, FaApple } from "react-icons/fa";
-import { BsTwitterX } from "react-icons/bs";
+// 1. استيراد الأيقونات للأجهزة المحيطة بالصورة
+import { FaAndroid, FaApple } from "react-icons/fa";
 import { SiFlutter } from "react-icons/si"; // بنستخدم SiFlutter عشان ده اللوجو الرسمي
-
-const expertise = [
-    "Flutter & Dart — production-ready Android & iOS apps",
-    "REST API Integration — Postman, clean networking",
-    "Firebase — Authentication, Firestore, Cloud Storage",
-    "BLoC State Management — scalable architecture",
-    "UI/UX Focus — smooth animations and clean layouts",
-    "Local Storage — Hive & offline-first apps",
-];
-
-const socialLinks = [
-    { name: "GitHub", icon: FaGithub, url: "https://github.com/Mohamed3li454" },
-    { name: "Behance", icon: FaBehance, url: "https://www.behance.net/5c8dc512" },
-    { name: "Telegram", icon: FaTelegram, url: "https://t.me/Mohamed3li54" },
-    { name: "X", icon: BsTwitterX, url: "https://x.com/no_one8383" },
-];
+import TextSelectionQuote from "./ui/TextSelectionQuote";
 
 // 2. تعديل المصفوفة عشان تشيل الـ Component واللون بدلاً من الإيموجي
 const orbitingIcons = [
@@ -194,89 +178,26 @@ export default function AboutSection() {
                                 </p>
                             </motion.div>
 
-                            {/* Intro Quote */}
-                            <motion.p
-                                className="text-lg text-neutral-300 mb-6 italic border-l-4 border-indigo-500/50 pl-4"
+                            {/* Animated Text Selection Quote */}
+                            <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                                 transition={{ delay: 0.5, duration: 0.6 }}
                             >
-                                &ldquo;I build high-quality mobile applications with Flutter, focusing on clean architecture, performance, and real-world scalability.&rdquo;
-                            </motion.p>
+                                <TextSelectionQuote text="Turning ideas into clean, fast, and maintainable Flutter applications." />
+                            </motion.div>
 
                             {/* Main Paragraph */}
                             <motion.p
-                                className="text-base text-neutral-400 mb-8 leading-relaxed"
+                                className="text-base text-neutral-400 mb-0 leading-relaxed"
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                                 transition={{ delay: 0.6, duration: 0.6 }}
                             >
-                                I specialize in crafting cross-platform mobile apps that feel smooth, modern, and reliable. From pixel-perfect UI to robust backend integrations, I enjoy turning complex ideas into elegant digital products that users actually love using.
+                                Mobile Dev building iOS &amp; Android apps with Flutter.
+                                <br className="hidden sm:inline" />{" "}
+                                I build full apps from scratch focusing on proper architecture, handling APIs, and structuring state management so the code stays clean and maintainable.
                             </motion.p>
-
-                            {/* Expertise List */}
-                            <motion.div
-                                className="mb-8"
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                                transition={{ delay: 0.7, duration: 0.6 }}
-                            >
-                                <h4 className="text-sm tracking-wider uppercase text-indigo-400/80 mb-4">
-                                    Expertise
-                                </h4>
-                                <ul className="space-y-3">
-                                    {expertise.map((item, index) => (
-                                        <motion.li
-                                            key={index}
-                                            className="flex items-start gap-3 text-sm text-neutral-300"
-                                            initial={{ opacity: 0, x: -20 }}
-                                            animate={isInView ? { opacity: 1, x: 0 } : {}}
-                                            transition={{ delay: 0.8 + index * 0.1, duration: 0.5 }}
-                                        >
-                                            <span className="text-indigo-400 mt-1">▹</span>
-                                            <span>{item}</span>
-                                        </motion.li>
-                                    ))}
-                                </ul>
-                            </motion.div>
-
-                            {/* Closing Line */}
-                            <motion.p
-                                className="text-base text-neutral-400 mb-8 italic"
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                                transition={{ delay: 1.4, duration: 0.6 }}
-                            >
-                                I value clear communication, fast iteration, and delivering on time.
-                            </motion.p>
-
-                            {/* Social Links */}
-                            <motion.div
-                                className="flex gap-4"
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                                transition={{ delay: 1.5, duration: 0.6 }}
-                            >
-                                {socialLinks.map((social) => {
-                                    const Icon = social.icon;
-                                    return (
-                                        <motion.a
-                                            key={social.name}
-                                            href={social.url}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="w-12 h-12 rounded-full bg-neutral-800/50 border border-indigo-500/30 flex items-center justify-center text-neutral-400 hover:text-white hover:border-indigo-400 transition-all duration-300"
-                                            whileHover={{ scale: 1.1, y: -3 }}
-                                            whileTap={{ scale: 0.95 }}
-                                            style={{
-                                                boxShadow: "0 0 20px rgba(99, 102, 241, 0.2)",
-                                            }}
-                                        >
-                                            <Icon className="text-xl" />
-                                        </motion.a>
-                                    );
-                                })}
-                            </motion.div>
                         </div>
                     </motion.div>
                 </div>

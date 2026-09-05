@@ -74,14 +74,14 @@ export default function ProcessSection() {
                         whileInView={{ opacity: 1 }}
                         className="inline-block text-indigo-400 font-medium tracking-wider text-sm mb-4 uppercase"
                     >
-                        The Methodology
+                        The Process
                     </motion.span>
                     <motion.h2
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         className="text-3xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-white/60"
                     >
-                        Systematic Creativity
+                        From Concept to Launch
                     </motion.h2>
                 </div>
 
